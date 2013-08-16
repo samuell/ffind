@@ -41,4 +41,4 @@ IFS=$IFS_ORIG
     for f in $(find . -iname "$searchstr"|grep -Pv $skip_pattern); do 
         echo $(fstrcmp $f $searchstr_orig) $f; 
     done; 
-}|awk '$1 > 0.25'|sort -nr|awk '{ print $2 }'|less
+}|awk '$1 > 0.25'|sort -nr|awk '{ print $2 }'
