@@ -7,20 +7,31 @@
 # -----------------------------------------------------
 
 # Some configs
+results_cnt=10;
+for opt in $@; do
+    case $opt in
+        -n) results_cnt=$2 ; shift 2 ;;  # reading $2 grabs the *next* fragment
+        -h) shift 1 ;; # Remove -h flag so it is not catched by fstrcmp.
+    esac
+done;
 skip_pattern="\.(pyc|o|a|javac)$"
 
 # Output help screen if no args
 if [[ -z $1 ]]; then
     echo "------------------------------------------------"
-    echo "Usage: ffind <search terms>"
+    echo "Usage: ffind [-n NUMRESULTS] <search terms>"
     echo "------------------------------------------------"
     echo "ffind searches the current folder and subfolders"
     echo "with fuzzy matching against the file names (not"
-    echo "the file content)"
+    echo "the file content)."
+    echo "";
+    echo "If the -n flag is supplied, NUMRESULTS specifies"
+    echo "how many lines of output to show (default is 10)"
     echo "------------------------------------------------"
     exit 1;
 fi;
 
+# Hackish way, yes, but didn't get other solutions to work :/
 searchstr_orig=$1$2$3$4$5$6$7$8$9
 
 # Split search sting 
@@ -41,4 +52,4 @@ IFS=$IFS_ORIG
     for f in $(find . -iname "$searchstr"|grep -Pv $skip_pattern); do 
         echo $(fstrcmp $f $searchstr_orig) $f; 
     done; 
-}|awk '$1 > 0.25'|sort -nr|awk '{ print $2 }'
+}|awk '$1 > 0.25'|sort -n|awk '{ print $2 }'|head -n $results_cnt
