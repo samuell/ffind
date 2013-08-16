@@ -1,0 +1,44 @@
+#!/bin/bash
+# -----------------------------------------------------
+# FuzzyFind - A fuzzy file search command for linux
+# -----------------------------------------------------
+# Author: Samuel Lampa - samuel.lampa@gmail.com
+# Dependencies: fstrcmp: http://fstrcmp.sourceforge.net
+# -----------------------------------------------------
+
+# Some configs
+skip_pattern="\.(pyc|o|a|javac)$"
+
+# Output help screen if no args
+if [[ -z $1 ]]; then
+    echo "------------------------------------------------"
+    echo "Usage: ffind <search terms>"
+    echo "------------------------------------------------"
+    echo "ffind searches the current folder and subfolders"
+    echo "with fuzzy matching against the file names (not"
+    echo "the file content)"
+    echo "------------------------------------------------"
+    exit 1;
+fi;
+
+searchstr_orig=$1$2$3$4$5$6$7$8$9
+
+# Split search sting 
+searchchars=($(echo $searchstr_orig|sed  's/\(.\)/\1 /g'))
+
+# Save the original file separator
+IFS_ORIG=$IFS
+
+# Set the separator to use when joining
+IFS="*"
+
+# Join the array, with the IFS (*) as separator
+searchstr="*${searchchars[*]}*"
+
+# Restore the original file separator
+IFS=$IFS_ORIG
+{
+    for f in $(find . -iname "$searchstr"|grep -Pv $skip_pattern); do 
+        echo $(fstrcmp $f $searchstr_orig) $f; 
+    done; 
+}|awk '$1 > 0.25'|sort -nr|awk '{ print $2 }'|less
