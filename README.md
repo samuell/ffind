@@ -8,11 +8,11 @@ at the root of a [galaxy](http://getgalaxy.org) folder. As you can see, not only
 results containing the full term "toolconf" are found, but also the ones that contain
 some parts of the search term (in this case "tool" and "conf".
 
-![ffind screenshot](https://raw.github.com/samuell/ffind/master/FFind.png)
+![ffind screenshot](FFind.png?raw=true)
 
 It is inspired by the fuzzy matching of file names available in the [sublime text editor](https://raw.github.com/samuell/ffind/master/FFind.png), and is intended to act as a "poorman's" fuzzy search, to be used with Geany, for example, as demonstrated in the screenshow below:
 
-![ffind screenshot](https://raw.github.com/samuell/ffind/master/GeanyWithFFind.png)
+![ffind screenshot](GeanyWithFFind.png?raw=true)
 
 Hopefully you find this useful somehow!
 
