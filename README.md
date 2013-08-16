@@ -6,7 +6,7 @@ FFind - Fuzzy Find on the command line
 The below example shows how a fuzzy search might look when searching for "toolconf"
 at the root of a [galaxy](http://getgalaxy.org) folder:
 
-![ffind screenshot](http://github.com/samuell/ffind/FFind.png)
+![ffind screenshot](http://github.com/samuell/ffind/master/FFind.png)
 
 Installation
 --------------------------------------
